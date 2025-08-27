@@ -1,8 +1,10 @@
+import { holdings } from "../data/data";
+
 function Holdings() {
   return (
     <>
       <>
-        <h3 className="title">Holdings (13)</h3>
+        <h3 className="title">Holdings ({holdings.length})</h3>
 
         <div className="order-table">
           <table>
@@ -16,6 +18,25 @@ function Holdings() {
               <th>Net chg.</th>
               <th>Day chg.</th>
             </tr>
+            {holdings.map((stock, index) => {
+              const currValue = stock.price * stock.qty;
+              const isProfit = currValue - stock.avg * stock.qty >= 0.0;
+              const isProfitClass = isProfit ? "profit" : "loss";
+              const isDayClass = isProfit ? "profit" : "loss";
+
+              return (
+                <tr key={index}>
+                  <td>{stock.name}</td>
+                  <td>{stock.qty}</td>
+                  <td>{stock.avg.toFixed(2)}</td>
+                  <td>{stock.price.toFixed(2)}</td>
+                  <td>{currValue.toFixed(2)}</td>
+                  <td className={isProfitClass}>{(currValue - stock.avg * stock.qty).toFixed(2)}</td>
+                  <td className={isProfitClass}>{stock.net}</td>
+                  <td className={isDayClass}>{stock.day}</td>
+                </tr>
+              );
+            })}
           </table>
         </div>
 

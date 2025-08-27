@@ -1,4 +1,21 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 function Menu() {
+    const [SelectedMenuOption , setSelectedMenuOption] = useState(0);
+    const [isProfileDropdownOpen , setIsProfileDropdownOpen] = useState(false);
+
+    const handleMenuCLicks = (index)=>{
+        setSelectedMenuOption(index);
+    }
+
+    const handleProfileClick = (boolean)=>{
+        setIsProfileDropdownOpen(!isProfileDropdownOpen)
+    }
+
+    const menuClass = "menu"
+    const activeMenuClass = "menu selected"
+
   return (
     <>
       <div className="menu-container">
@@ -6,19 +23,19 @@ function Menu() {
         <div className="menus">
           <ul>
             <li>
-              <p>Dashboard</p>
+                <Link style={{textDecoration:"none"}} to={"/"} onClick={()=>handleMenuCLicks(0)}> <p className={SelectedMenuOption===0?activeMenuClass:menuClass}>Dashboard</p> </Link>
             </li>
             <li>
-              <p>Orders</p>
+              <Link style={{textDecoration:"none"}} to={"orders"} onClick={()=>handleMenuCLicks(1)}> <p className={SelectedMenuOption===1?activeMenuClass:menuClass}>Orders</p> </Link>
             </li>
             <li>
-              <p>Holdings</p>
+              <Link style={{textDecoration:"none"}} to={"/holdings"} onClick={()=>handleMenuCLicks(2)}> <p className={SelectedMenuOption===2?activeMenuClass:menuClass}>Holdings</p> </Link>
             </li>
             <li>
-              <p>Positions</p>
+              <Link style={{textDecoration:"none"}} to={"/positions"} onClick={()=>handleMenuCLicks(3)}> <p className={SelectedMenuOption===3?activeMenuClass:menuClass}>Positions</p> </Link>
             </li>
             <li>
-              <p>Funds</p>
+              <Link style={{textDecoration:"none"}} to={"/funds"} onClick={()=>handleMenuCLicks(4)}> <p className={SelectedMenuOption===4?activeMenuClass:menuClass}>Funds</p> </Link>
             </li>
             <li>
               <p>Apps</p>
@@ -26,7 +43,7 @@ function Menu() {
           </ul>
           <hr />
           <div className="profile">
-            <div className="avatar">ZU</div>
+            <div className="avatar" onClick={handleProfileClick}>ZU</div>
             <p className="username">USERID</p>
           </div>
         </div>
