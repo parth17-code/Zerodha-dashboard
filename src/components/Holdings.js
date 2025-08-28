@@ -3,7 +3,7 @@ import { holdings } from "../data/data";
 function Holdings() {
   return (
     <>
-      <>
+      
         <h3 className="title">Holdings ({holdings.length})</h3>
 
         <div className="order-table">
@@ -58,7 +58,7 @@ function Holdings() {
             <p>P&L</p>
           </div>
         </div>
-      </>
+      
     </>
   );
 }
