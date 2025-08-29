@@ -8,13 +8,16 @@ import Orders from "./Orders";
 import Positions from "./Positions";
 import Summary from "./Summary";
 import Watchlist from "./Watchlist";
+import { GeneralContextProvider } from "../context/GeneralContext";
 
 
 function Dashboard() {
   return (
     <>
       <div className="dashboard-container">
-        <Watchlist></Watchlist>
+        <GeneralContextProvider>
+          <Watchlist></Watchlist>
+        </GeneralContextProvider>
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Summary />} />
