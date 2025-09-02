@@ -1,8 +1,35 @@
+import { useState,useEffect } from "react";
+import axios from 'axios'
+
 function Summary() {
+
+    const [userName , setUserName] = useState("");
+  
+    useEffect(() => {
+      const verifyUser = async () => {
+        try {
+          const res = await axios.get("http://localhost:3002/user/verify", {
+            withCredentials: true,
+          });
+  
+          if (res.data.status) {
+            setUserName(res.data.user.name);
+          }else{
+            setUserName("User!");
+          }
+        } catch (err) {
+          console.error("Verification failed", err);
+          window.location.href = "http://localhost:3000";
+        }
+      };
+  
+      verifyUser();
+    }, []);
+
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>{`Hi, ${userName}!`}</h6>
         <hr className="divider" />
       </div>
 

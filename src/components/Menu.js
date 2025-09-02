@@ -1,20 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Menu() {
-    const [SelectedMenuOption , setSelectedMenuOption] = useState(0);
-    const [isProfileDropdownOpen , setIsProfileDropdownOpen] = useState(false);
+  const [SelectedMenuOption, setSelectedMenuOption] = useState(0);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [userName , setUserName] = useState("");
 
-    const handleMenuCLicks = (index)=>{
-        setSelectedMenuOption(index);
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:3002/user/verify", {
+          withCredentials: true,
+        });
+
+        if (!res.data.status) {
+          window.location.href = "http://localhost:3000";
+        }else{
+          setUserName(res.data.user.name);
+        }
+      } catch (err) {
+        console.error("Verification failed", err);
+        window.location.href = "http://localhost:3000";
+      }
+    };
+
+    verifyUser();
+  }, []);
+
+  const handleMenuCLicks = (index) => {
+    setSelectedMenuOption(index);
+  };
+
+  const handleProfileClick = (boolean) => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  };
+
+  const handleLogoutClick = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3002/logout",
+        {},
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        window.location.href = "http://localhost:3000";
+      }
+    } catch (err) {
+      console.error("Logout failed", err);
     }
+  };
 
-    const handleProfileClick = (boolean)=>{
-        setIsProfileDropdownOpen(!isProfileDropdownOpen)
-    }
-
-    const menuClass = "menu"
-    const activeMenuClass = "menu selected"
+  const menuClass = "menu";
+  const activeMenuClass = "menu selected";
 
   return (
     <>
@@ -23,28 +61,109 @@ function Menu() {
         <div className="menus">
           <ul>
             <li>
-                <Link style={{textDecoration:"none"}} to={"/"} onClick={()=>handleMenuCLicks(0)}> <p className={SelectedMenuOption===0?activeMenuClass:menuClass}>Dashboard</p> </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={"/"}
+                onClick={() => handleMenuCLicks(0)}
+              >
+                {" "}
+                <p
+                  className={
+                    SelectedMenuOption === 0 ? activeMenuClass : menuClass
+                  }
+                >
+                  Dashboard
+                </p>{" "}
+              </Link>
             </li>
             <li>
-              <Link style={{textDecoration:"none"}} to={"orders"} onClick={()=>handleMenuCLicks(1)}> <p className={SelectedMenuOption===1?activeMenuClass:menuClass}>Orders</p> </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={"orders"}
+                onClick={() => handleMenuCLicks(1)}
+              >
+                {" "}
+                <p
+                  className={
+                    SelectedMenuOption === 1 ? activeMenuClass : menuClass
+                  }
+                >
+                  Orders
+                </p>{" "}
+              </Link>
             </li>
             <li>
-              <Link style={{textDecoration:"none"}} to={"/holdings"} onClick={()=>handleMenuCLicks(2)}> <p className={SelectedMenuOption===2?activeMenuClass:menuClass}>Holdings</p> </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={"/holdings"}
+                onClick={() => handleMenuCLicks(2)}
+              >
+                {" "}
+                <p
+                  className={
+                    SelectedMenuOption === 2 ? activeMenuClass : menuClass
+                  }
+                >
+                  Holdings
+                </p>{" "}
+              </Link>
             </li>
             <li>
-              <Link style={{textDecoration:"none"}} to={"/positions"} onClick={()=>handleMenuCLicks(3)}> <p className={SelectedMenuOption===3?activeMenuClass:menuClass}>Positions</p> </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={"/positions"}
+                onClick={() => handleMenuCLicks(3)}
+              >
+                {" "}
+                <p
+                  className={
+                    SelectedMenuOption === 3 ? activeMenuClass : menuClass
+                  }
+                >
+                  Positions
+                </p>{" "}
+              </Link>
             </li>
             <li>
-              <Link style={{textDecoration:"none"}} to={"/funds"} onClick={()=>handleMenuCLicks(4)}> <p className={SelectedMenuOption===4?activeMenuClass:menuClass}>Funds</p> </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={"/funds"}
+                onClick={() => handleMenuCLicks(4)}
+              >
+                {" "}
+                <p
+                  className={
+                    SelectedMenuOption === 4 ? activeMenuClass : menuClass
+                  }
+                >
+                  Funds
+                </p>{" "}
+              </Link>
             </li>
             <li>
               <p>Apps</p>
             </li>
           </ul>
           <hr />
-          <div className="profile">
-            <div className="avatar" onClick={handleProfileClick}>ZU</div>
-            <p className="username">USERID</p>
+          <div className="profile dropdown" onClick={handleProfileClick}>
+            <button
+              type="button"
+              class="dropdown-toggle avatar"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ZU
+            </button>
+            {isProfileDropdownOpen ? (
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item username" onClick={handleLogoutClick}>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            ) : null}
+            <p className="username"><b>{userName}</b></p>
           </div>
         </div>
       </div>
