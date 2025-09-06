@@ -47,7 +47,7 @@ useEffect(() => {
   const handleLogoutClick = async () => {
     try {
       const res = await axios.post(
-        `${BACKEND_URL}/logout`,
+        `https://zerodha-backend-qvo7.onrender.com/logout`,
         {},
         { withCredentials: true }
       );
