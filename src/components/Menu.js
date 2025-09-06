@@ -9,24 +9,24 @@ function Menu() {
 
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
-const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
+
 
 
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/user/verify`, {
+        const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
           withCredentials: true,
         });
 
         if (!res.data.status) {
-          window.location.href = `${FRONTEND_URL}/signup`;
+          window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
         }else{
           setUserName(res.data.user.name);
         }
       } catch (err) {
         console.error("Verification failed", err);
-        window.location.href = `${FRONTEND_URL}/signup`;
+        window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
       }
     };
 
@@ -49,7 +49,7 @@ const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
         { withCredentials: true }
       );
       if (res.data.success) {
-        window.location.href = `${FRONTEND_URL}/signup`;
+        window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
       }
     } catch (err) {
       console.error("Logout failed", err);

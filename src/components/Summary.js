@@ -10,7 +10,7 @@ function Summary() {
     useEffect(() => {
       const verifyUser = async () => {
         try {
-          const res = await axios.get(`${BACKEND_URL}/user/verify`, {
+          const res = await axios.get(`https://zerodha-backend-qvo7.onrender.com/user/verify`, {
             withCredentials: true,
           });
   
