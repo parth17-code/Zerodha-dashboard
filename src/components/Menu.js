@@ -25,7 +25,7 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
           setUserName(res.data.user.name);
         }
       
-        console.error("Verification failed", err);
+        console.error("Verification failed");
         window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
       
     };
