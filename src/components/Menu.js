@@ -10,18 +10,18 @@ function Menu() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3002/user/verify", {
+        const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
           withCredentials: true,
         });
 
         if (!res.data.status) {
-          window.location.href = "http://localhost:3000";
+          window.location.href = "https://zerodha-frontend-4blv.vercel.app/signup";
         }else{
           setUserName(res.data.user.name);
         }
       } catch (err) {
         console.error("Verification failed", err);
-        window.location.href = "http://localhost:3000";
+        window.location.href = "https://zerodha-frontend-4blv.vercel.app/signup";
       }
     };
 
@@ -39,12 +39,12 @@ function Menu() {
   const handleLogoutClick = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3002/logout",
+        "https://zerodha-backend-qvo7.onrender.com/logout",
         {},
         { withCredentials: true }
       );
       if (res.data.success) {
-        window.location.href = "http://localhost:3000";
+        window.location.href = "https://zerodha-frontend-4blv.vercel.app";
       }
     } catch (err) {
       console.error("Logout failed", err);

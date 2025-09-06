@@ -8,7 +8,7 @@ function Summary() {
     useEffect(() => {
       const verifyUser = async () => {
         try {
-          const res = await axios.get("http://localhost:3002/user/verify", {
+          const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
             withCredentials: true,
           });
   
@@ -19,7 +19,7 @@ function Summary() {
           }
         } catch (err) {
           console.error("Verification failed", err);
-          window.location.href = "http://localhost:3000";
+          window.location.href = "https://zerodha-frontend-4blv.vercel.app";
         }
       };
   
