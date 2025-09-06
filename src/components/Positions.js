@@ -7,7 +7,7 @@ function Positions() {
 
   useEffect(() => {
     const fetch = async () => {
-      let res = await axios.get(`${BACKEND_URL}/allPositions`);
+      let res = await axios.get(`https://zerodha-backend-qvo7.onrender.com/allPositions`);
       console.log(res.data);
       setAllPositions(res.data);
     };

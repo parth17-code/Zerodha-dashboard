@@ -8,7 +8,7 @@ function Holdings() {
 
   useEffect(() => {
     const fetch = async()=>{
-    let res = await axios.get(`${BACKEND_URL}/allHoldings`);
+    let res = await axios.get(`https://zerodha-backend-qvo7.onrender.com/allHoldings`);
     console.log(res.data);
     setAllholdings(res.data);
     }
