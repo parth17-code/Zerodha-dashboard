@@ -13,7 +13,7 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
 
   useEffect(() => {
-    const verifyUser = async (req,res) => {
+    const verifyUser = async () => {
         const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
           withCredentials: true,
         });
