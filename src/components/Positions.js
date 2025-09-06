@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 
 function Positions() {
   const [allPositions, setAllPositions] = useState([]);
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
   useEffect(() => {
     const fetch = async () => {
-      let res = await axios.get("https://zerodha-backend-qvo7.onrender.com/allPositions");
+      let res = await axios.get(`${BACKEND_URL}/allPositions`);
       console.log(res.data);
       setAllPositions(res.data);
     };

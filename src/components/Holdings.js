@@ -4,10 +4,11 @@ import { VerticalGraph } from "./VerticalGraph";
 
 function Holdings() {
   const [allHoldings, setAllholdings] = useState([]);
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetch = async()=>{
-    let res = await axios.get("https://zerodha-backend-qvo7.onrender.com/allHoldings");
+    let res = await axios.get(`${BACKEND_URL}/allHoldings`);
     console.log(res.data);
     setAllholdings(res.data);
     }

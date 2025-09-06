@@ -4,11 +4,13 @@ import axios from 'axios'
 function Summary() {
 
     const [userName , setUserName] = useState("");
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
   
     useEffect(() => {
       const verifyUser = async () => {
         try {
-          const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
+          const res = await axios.get(`${BACKEND_URL}/user/verify`, {
             withCredentials: true,
           });
   
@@ -19,7 +21,7 @@ function Summary() {
           }
         } catch (err) {
           console.error("Verification failed", err);
-          window.location.href = "https://zerodha-frontend-4blv.vercel.app";
+          window.location.href = `${FRONTEND_URL}`;
         }
       };
   
