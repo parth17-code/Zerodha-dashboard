@@ -20,6 +20,7 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
         });
 
         if (!res.data.status) {
+          console.log("KickBack");
           window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
         }else{
           setUserName(res.data.user.name);
