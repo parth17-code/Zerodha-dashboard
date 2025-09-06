@@ -13,8 +13,7 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
 
   useEffect(() => {
-    const verifyUser = async () => {
-      try {
+    const verifyUser = async (req,res) => {
         const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
           withCredentials: true,
         });
@@ -25,10 +24,10 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
         }else{
           setUserName(res.data.user.name);
         }
-      } catch (err) {
+      
         console.error("Verification failed", err);
         window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
-      }
+      
     };
 
     verifyUser();
