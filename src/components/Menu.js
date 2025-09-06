@@ -12,26 +12,29 @@ const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
 
 
-  useEffect(() => {
-    const verifyUser = async () => {
-        const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
-          withCredentials: true,
-        });
+useEffect(() => {
+  const verifyUser = async () => {
+    try {
+      const res = await axios.get("https://zerodha-backend-qvo7.onrender.com/user/verify", {
+        withCredentials: true,
+      });
 
-        if (!res.data.status) {
-          console.log("KickBack");
-          window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
-        }else{
-          setUserName(res.data.user.name);
-        }
-      
-        console.error("Verification failed");
-        window.location.href = `https://zerodha-frontend-ochre.vercel.app/signup`;
-      
-    };
+      if (!res.data.status) {
+        console.log("KickBack");
+        window.location.href = "https://zerodha-frontend-ochre.vercel.app/signup";
+      } else {
+        setUserName(res.data.user.name);
+        console.log("User verified:", res.data.user.name);
+      }
+    } catch (err) {
+      console.error("Verification failed", err);
+      window.location.href = "https://zerodha-frontend-ochre.vercel.app/signup";
+    }
+  };
 
-    verifyUser();
-  }, []);
+  verifyUser();
+}, []);
+
 
   const handleMenuCLicks = (index) => {
     setSelectedMenuOption(index);
